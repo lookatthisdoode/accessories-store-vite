@@ -1,7 +1,7 @@
 const ProductCard = ({ item }) => {
   const { id, name, type, price, quantity, likes, picture, bio } = item
 
-  const inStock = quantity < 0
+  const inStock = quantity > 0
 
   return (
     <div className='card w-11/12 lg:w-4/12 p-5 text-neutral-800 '>
@@ -10,7 +10,7 @@ const ProductCard = ({ item }) => {
           {name}
         </div>
         <div
-          className='card-image w-full aspect-video bg-top hover:bg-bottom duration-1000 rounded'
+          className='card-image w-full aspect-video  rounded'
           style={{
             backgroundImage: `url(${picture})`,
             backgroundSize: 'cover',
