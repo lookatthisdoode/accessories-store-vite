@@ -3,6 +3,7 @@ import "./App.css";
 import ProductCard from "./components/ProductCard.jsx";
 import Landing from "./components/Landing.jsx";
 import Nav from "./components/Nav.jsx";
+import Cart from "./components/Cart.jsx";
 
 let products = [
   {
@@ -72,6 +73,7 @@ function addToCart(id) {
     });
   }
   console.log(cart);
+
 }
 
 // import cartItem from './components/cartItem.jsx'
@@ -95,6 +97,7 @@ function App() {
           <Nav />
         </div>
       </nav>
+      <Cart />
       <div className="spacer h-40vh"></div>
 
       <div className="title p-5 text-5xl lg:text-9xl text-blue-500 font-Nabi bg-neutral-100 shadow-2xl w-full text-center">
@@ -108,7 +111,6 @@ function App() {
             <ProductCard item={products[1]} />
             <ProductCard item={products[2]} />
             <ProductCard item={products[3]} />
-
             <ProductCard item={products[0]} />
             <ProductCard item={products[1]} />
           </div>

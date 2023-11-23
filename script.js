@@ -34,3 +34,5 @@
 // //call updateCart upon rendering to load cart from LS and setUpCart()`
 // )
 // nav.style.position = 'top:25px'
+
+const a = "adsd";
