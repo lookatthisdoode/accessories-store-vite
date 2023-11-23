@@ -4,13 +4,17 @@ const ProductCard = ({ item }) => {
   const inStock = quantity > 0
 
   return (
-    <div className='card w-11/12 lg:w-4/12 p-5 text-neutral-800 '>
+    <div
+      data-store-item
+      data-item-id={id}
+      className='card w-full lg:w-4/12 p-5 text-neutral-800 '
+    >
       <div className='card-wrapper w-full h-full bg-neutral-200 p-5 rounded shadow-2xl'>
         <div className='card-title text-2xl font font-Nabi pb-2 uppercase'>
           {name}
         </div>
         <div
-          className='card-image w-full aspect-video  rounded'
+          className='card-image w-full aspect-video bg-top hover:bg-bottom duration-1000 rounded'
           style={{
             backgroundImage: `url(${picture})`,
             backgroundSize: 'cover',
@@ -30,7 +34,10 @@ const ProductCard = ({ item }) => {
           </p>
           <div className='card-price-add-to-cart flex justify-between items-end'>
             <div className='card-price text-2xl'>{price}$</div>
-            <button className='add-to-cart bg-pink-300 rounded py-1 px-2 hover:bg-pink-400'>
+            <button
+              data-add-to-cart
+              className='add-to-cart bg-pink-300 rounded py-1 px-2 hover:bg-pink-400'
+            >
               {inStock ? 'Add to cart' : 'Out Of Stock'}
             </button>
           </div>

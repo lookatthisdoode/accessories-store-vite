@@ -1,26 +1,36 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var parallaxBg = document.querySelector('.card-image')
+// console.log(
+//   `
+// TODOS
+// //////////////[express server]////////////////////////
+// //create and populate 'database' json
+// //write connection points like /get to getItems
+// //(optional) write /post to save orders as files or localstorage
 
-  // Intersection Observer to check if the element is in the viewport
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        // Element is in the viewport, start parallax effect
-        window.addEventListener('scroll', handleParallaxScroll)
-      } else {
-        // Element is not in the viewport, stop parallax effect
-        window.removeEventListener('scroll', handleParallaxScroll)
-      }
-    })
-  })
+// //////////////[client]////////////////////////////////
+// //fetch and render items
+// //store itemId in data-id upon rendering
 
-  // Start observing the .card-image element
-  observer.observe(parallaxBg)
+// //////////////[cart item]/////////////////////////////
+// //create and style cart component hardcoded values
+// //open close cart functionality
+// //(optional)add number pop if items exist in the cart
 
-  function handleParallaxScroll() {
-    var scrollPercentage =
-      (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
-    var translateY = Math.max(0, Math.min(scrollPercentage, 100))
-    parallaxBg.style.backgroundPositionY = translateY + '%'
-  }
-})
+// //////////////[client js functionality]///////////////
+// //create cartArray, maybe state?
+// //using data-id to store and delete item from cartArray
+// //change cartArray everytime item is beed added to the cart (call updateCart)
+// //change cartArray everytime item is being deleted and update total stuff
+// //'add to cart' button functionality
+// //cart functionality actuall render
+
+// //////////////[extras *** tasks]///////////////////////
+// //create and style confirm order page where you can review your order and send it to my email with hardcoded stuff
+// //create routing and links
+// //add js functionality render actuall order and total
+// //*add email functionality, sendOrder()
+
+// // full item display page with back button and stuff
+// //save cart into localstorage everytime changes happening to the cart
+// //call updateCart upon rendering to load cart from LS and setUpCart()`
+// )
+// nav.style.position = 'top:25px'

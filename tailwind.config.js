@@ -10,6 +10,7 @@ export default {
       },
       spacing: {
         '25vh': '25vh',
+        '40vh': '40vh',
         '50vh': '50vh',
         '100vh': '100vh',
       },
