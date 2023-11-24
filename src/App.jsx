@@ -1,9 +1,9 @@
-import { useState } from "react";
-import "./App.css";
-import ProductCard from "./components/ProductCard.jsx";
-import Landing from "./components/Landing.jsx";
-import Nav from "./components/Nav.jsx";
-import Cart from "./components/Cart.jsx";
+import { useState } from "react"
+import "./App.css"
+import ProductCard from "./components/ProductCard.jsx"
+import Landing from "./components/Landing.jsx"
+import Nav from "./components/Nav.jsx"
+import Cart from "./components/Cart.jsx"
 
 let products = [
   {
@@ -50,30 +50,29 @@ let products = [
     likes: 23,
     bio: "Discover our stunning collection of handmade accessories, crafted with natural stones and organic materials. ",
   },
-];
+]
 
-let cart = [];
+let cart = []
 
 document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("click", (e) => {
-    if (!e.target.matches("[data-add-to-cart]")) return;
-    const id = e.target.closest("[data-store-item]").dataset.itemId;
-    addToCart(id);
-  });
-});
+    if (!e.target.matches("[data-add-to-cart]")) return
+    const id = e.target.closest("[data-store-item]").dataset.itemId
+    addToCart(id)
+  })
+})
 
 function addToCart(id) {
-  const existingItem = cart.find((i) => id === i.id);
+  const existingItem = cart.find((i) => id === i.id)
   if (existingItem) {
-    existingItem.quantity++;
+    existingItem.quantity++
   } else {
     cart.push({
       id: id,
       quantity: 1,
-    });
+    })
   }
-  console.log(cart);
-
+  console.log(cart)
 }
 
 // import cartItem from './components/cartItem.jsx'
@@ -82,12 +81,19 @@ function addToCart(id) {
 // })
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [cartOpen, toggleCartOpen] = useState(true)
+
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   document.addEventListener("click", (e) => {
+  //     if (!e.target.matches("[data-cart]")) return
+  //   })
+  // })
 
   return (
     <>
-      <section className="container px-5 pt-50vh py-10">
+      <section className="container flex justify-center px-5 pt-50vh py-10">
         <Landing />
+        {cartOpen && <Cart />}
       </section>
       <nav
         id="nav"
@@ -97,7 +103,7 @@ function App() {
           <Nav />
         </div>
       </nav>
-      <Cart />
+
       <div className="spacer h-40vh"></div>
 
       <div className="title p-5 text-5xl lg:text-9xl text-blue-500 font-Nabi bg-neutral-100 shadow-2xl w-full text-center">
@@ -132,8 +138,8 @@ function App() {
       </section>
       <div className="spacer h-40vh"></div>
     </>
-  );
+  )
 }
 
-import "../script.js";
-export default App;
+import "../script.js"
+export default App
