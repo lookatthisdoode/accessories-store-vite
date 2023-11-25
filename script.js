@@ -11,8 +11,8 @@
 // //store itemId in data-id upon rendering
 
 // //////////////[cart item]/////////////////////////////
-// //create and style cart component hardcoded values
-// //open close cart functionality
+// //create and style cart component hardcoded values (done)
+// //open close cart functionality(done)
 // //(optional)add number pop if items exist in the cart
 
 // //////////////[client js functionality]///////////////
@@ -35,4 +35,4 @@
 // )
 // nav.style.position = 'top:25px'
 
-const a = "adsd";
+const a = 'adsd'
