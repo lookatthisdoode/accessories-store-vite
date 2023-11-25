@@ -114,7 +114,7 @@ function App() {
         - Bracelettes -
       </div>
 
-      <section className="flex w-full justify-center bg-yellow-300">
+      <section className="flex w-full justify-center bg-pink-300">
         <div className="container">
           <div className="flex flex-wrap justify-center lg:justify-start">
             <ProductCard item={products[0]} />

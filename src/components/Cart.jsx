@@ -3,7 +3,7 @@ const Cart = () => {
     <>
       <div
         data-cart
-        className="fixed top-14 z-50 h-auto w-full items-center rounded-md bg-yellow-500 p-10 shadow-2xl shadow-neutral-600 duration-500 lg:right-10 lg:w-1/5"
+        className="fixed top-14 z-50 h-auto w-full items-center rounded-md bg-yellow-400 p-10 shadow-2xl shadow-neutral-600 duration-500 lg:right-10 lg:w-1/5"
       >
         <div className="flex items-center justify-between text-5xl">
           <div className="font-bold ">Cart</div>
