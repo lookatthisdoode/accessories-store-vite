@@ -22,7 +22,6 @@ const Cart = (props) => {
         props.saveCartContent(newCart)
         return newCart
       })
-      //saveCartContent
     }
   }
 
@@ -48,45 +47,34 @@ const Cart = (props) => {
         </div>
 
         {props.cartList.length < 1 ? (
-          <div className="empty-cart mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-neutral-600 lg:max-h-[70vh]">
+          <div className="empty-cart mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-xl text-neutral-600 lg:max-h-[70vh]">
             There is nothing yet..
           </div>
         ) : (
-          <div
-            data-cart-item-container
-            className="mb-10 mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-neutral-600 lg:max-h-[70vh]"
-          >
-            {props.cartList.map((item) => {
-              return (
-                <div
-                  key={item.product.id} // Add a unique key for each item
-                  data-cart-item
-                  className="flex justify-between py-2"
-                >
-                  <div className="flex items-baseline gap-3">
-                    <div
-                      onClick={() => deleteFromCart(item.product.id)}
-                      data-cart-item-delete
-                      className="text-1xl h-3 w-3 cursor-pointer overflow-hidden rounded-full bg-red-600 hover:bg-red-700"
-                    >
-                      -
-                    </div>
-                    <span>{item.quantity}</span>
-                    <div data-cart-item-name>{item.product.name}</div>
+          <div className="mb-10 mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-neutral-600 lg:max-h-[70vh]">
+            {props.cartList.map((item) => (
+              <div
+                key={item.product.id} // Add a unique key for each item
+                className="flex justify-between py-2"
+              >
+                <div className="flex gap-3">
+                  <div
+                    onClick={() => deleteFromCart(item.product.id)}
+                    className="flex h-full w-4 cursor-pointer items-center duration-200 hover:-translate-x-1"
+                  >
+                    <div className="minus h-1 w-3 rounded-full bg-red-600"></div>
                   </div>
-                  <div data-cart-item-price>{`${
-                    item.product.price * item.quantity
-                  }$`}</div>
+                  <div>{item.quantity}</div>
+                  <div>{item.product.name}</div>
                 </div>
-              )
-            })}
+                <div>{`${item.product.price * item.quantity}$`}</div>
+              </div>
+            ))}
             <div className="mt-4 w-full rounded-md bg-neutral-300 py-2 text-center text-3xl text-neutral-500">
-              Total:
-              {` ${parseInt(
+              {`Total: ${parseInt(
                 props.cartList.reduce((accumulator, item) => {
                   // Calculate the total value for the current item and add it to the accumulator
                   accumulator += item.quantity * item.product.price
-
                   return accumulator
                 }, 0),
               )}$`}

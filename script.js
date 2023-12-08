@@ -10,3 +10,5 @@
 // //add js functionality render actuall order and total
 // //*add email functionality, sendOrder()
 // // full item display page with back button and stuff
+// add readme git/
+//add + in cart?
