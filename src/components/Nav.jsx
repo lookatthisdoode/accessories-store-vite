@@ -1,4 +1,4 @@
-const Nav = () => {
+const Nav = (props) => {
   return (
     <div className="flex justify-between font-Nabi uppercase lg:text-4xl">
       <div className="flex gap-5">
@@ -11,12 +11,13 @@ const Nav = () => {
         <div className="cursor-pointer duration-500 hover:text-pink-300">
           Rings
         </div>
-        <div
+        <button
           data-cart-open
-          className="cursor-pointer text-yellow-500 duration-500 hover:text-yellow-200"
+          onClick={() => props.toggleCartOpen(true)}
+          className="cursor-pointer uppercase text-yellow-500 duration-500 hover:text-yellow-200"
         >
           Cart
-        </div>
+        </button>
       </div>
     </div>
   )

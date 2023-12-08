@@ -4,11 +4,11 @@ const Landing = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center'>
-        <div className='text-5xl lg:text-9xl font-Nabi uppercase text-pink-300'>
+      <div className="w-full">
+        <div className="font-Nabi text-5xl uppercase text-pink-300 lg:text-9xl">
           Vitalina
         </div>
-        <div className='text-2xl lg:text-4xl font-Rouge text-pink-300'>
+        <div className="font-Rouge text-2xl text-pink-300 lg:text-4xl">
           {bio}
         </div>
       </div>
