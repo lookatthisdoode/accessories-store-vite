@@ -9,7 +9,7 @@ const ProductCard = ({ item, addToCart }) => {
       className="card w-full p-5 text-neutral-800 lg:w-4/12 "
     >
       <div className="card-wrapper h-full w-full rounded bg-neutral-200 p-5 shadow-2xl">
-        <div className="card-title font pb-2 font-Nabi text-2xl uppercase">
+        <div className="card-title pb-2 font-Nabi text-2xl uppercase">
           {name}
         </div>
         <div
