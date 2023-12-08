@@ -11,20 +11,23 @@ function App() {
   const [cartList, setCartList] = useState([])
 
   function addToCart(id) {
+    //create new array so you wont mess with original
     let newCart = [...cartList]
+    //if item is exist in the cart just increase quantity
     const existingItem = newCart.find((i) => id === i.product.id)
     if (existingItem) {
       existingItem.quantity++
-    } else {
+    }
+    //if not push new entity to array
+    else {
       const productToAdd = products.find((item) => item.id === id)
-
-      if (productToAdd) {
+      productToAdd &&
         newCart.push({
           product: productToAdd,
           quantity: 1,
         })
-      }
     }
+    //update list
     setCartList(newCart)
   }
 
@@ -51,36 +54,46 @@ function App() {
 
       <div className="spacer h-40vh"></div>
 
-      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-blue-500 shadow-2xl lg:text-9xl">
+      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-pink-500 shadow-2xl lg:text-9xl">
         - Bracelettes -
       </div>
-
       <section className="flex w-full justify-center bg-pink-300">
         <div className="container">
           <div className="flex flex-wrap justify-center lg:justify-start">
-            <ProductCard addToCart={addToCart} item={products[0]} />
-            <ProductCard addToCart={addToCart} item={products[1]} />
-            <ProductCard addToCart={addToCart} item={products[2]} />
-            <ProductCard addToCart={addToCart} item={products[3]} />
-            <ProductCard addToCart={addToCart} item={products[0]} />
-            <ProductCard addToCart={addToCart} item={products[1]} />
+            {products.map((product) => {
+              if (product.type === 'bracelet')
+                return (
+                  <ProductCard
+                    key={product.id}
+                    addToCart={addToCart}
+                    item={product}
+                  />
+                )
+            })}
           </div>
         </div>
       </section>
 
-      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-pink-300 shadow-2xl lg:text-9xl">
+      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-pink-500 shadow-2xl lg:text-9xl">
         - Necklaces -
       </div>
       <section className="flex w-full justify-center bg-pink-300 ">
         <div className="container">
           <div className="flex flex-wrap justify-center lg:justify-start">
-            <ProductCard addToCart={addToCart} item={products[0]} />
-            <ProductCard addToCart={addToCart} item={products[1]} />
-            <ProductCard addToCart={addToCart} item={products[2]} />
-            <ProductCard addToCart={addToCart} item={products[3]} />
+            {products.map((product) => {
+              if (product.type === 'necklace')
+                return (
+                  <ProductCard
+                    key={product.id}
+                    addToCart={addToCart}
+                    item={product}
+                  />
+                )
+            })}
           </div>
         </div>
       </section>
+
       <div className="spacer h-40vh"></div>
     </>
   )

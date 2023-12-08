@@ -1,6 +1,6 @@
 const ProductCard = ({ item, addToCart }) => {
   const { id, name, type, price, quantity, likes, picture, bio } = item
-
+  console.log(name)
   const inStock = quantity > 0
 
   return (
@@ -34,15 +34,21 @@ const ProductCard = ({ item, addToCart }) => {
           </p>
           <div className="card-price-add-to-cart flex items-end justify-between">
             <div className="card-price text-2xl">{price}$</div>
-            <button
-              onClick={() => {
-                addToCart(id)
-              }}
-              data-add-to-cart
-              className="add-to-cart rounded bg-pink-300 px-2 py-1 hover:bg-pink-400"
-            >
-              {inStock ? 'Add to cart' : 'Out Of Stock'}
-            </button>
+            {inStock ? (
+              <button
+                onClick={() => {
+                  addToCart(id)
+                }}
+                data-add-to-cart
+                className="add-to-cart rounded bg-pink-300 px-2 py-1 hover:bg-pink-400"
+              >
+                Add to cart
+              </button>
+            ) : (
+              <button className=" add-to-cart cursor-not-allowed rounded bg-neutral-400 px-2 py-1">
+                Out Of Stock
+              </button>
+            )}
           </div>
         </div>
       </div>
