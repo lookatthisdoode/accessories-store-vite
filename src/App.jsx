@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 import ProductCard from './components/ProductCard.jsx'
 import Landing from './components/Landing.jsx'
@@ -7,8 +7,20 @@ import Cart from './components/Cart.jsx'
 import products from './products.json'
 
 function App() {
+  const STORAGE_PREFIX = 'VITALINA_ACCESORIES'
+  const CART_STORAGE_KEY = `${STORAGE_PREFIX}-cart`
+
   const [cartOpen, toggleCartOpen] = useState(false)
-  const [cartList, setCartList] = useState([])
+  const [cartList, setCartList] = useState(loadCartContent())
+
+  function loadCartContent() {
+    const lanesJson = localStorage.getItem(CART_STORAGE_KEY)
+    return JSON.parse(lanesJson) || []
+  }
+
+  function saveCartContent(cartContent) {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartContent))
+  }
 
   function addToCart(id) {
     //create new array so you wont mess with original
@@ -27,8 +39,11 @@ function App() {
           quantity: 1,
         })
     }
-    //update list
-    setCartList(newCart)
+
+    setCartList(() => {
+      saveCartContent(newCart)
+      return newCart
+    })
   }
 
   return (
@@ -40,6 +55,7 @@ function App() {
             toggleCartOpen={toggleCartOpen}
             cartList={cartList}
             setCartList={setCartList}
+            saveCartContent={saveCartContent}
           />
         )}
       </section>
@@ -48,7 +64,7 @@ function App() {
         className=" sticky top-0 z-40 flex w-full justify-center bg-neutral-600"
       >
         <div className="container p-5">
-          <Nav toggleCartOpen={toggleCartOpen} />
+          <Nav toggleCartOpen={toggleCartOpen} cartQuantity={cartList.length} />
         </div>
       </nav>
 

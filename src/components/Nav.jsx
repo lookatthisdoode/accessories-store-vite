@@ -14,9 +14,14 @@ const Nav = (props) => {
         <button
           data-cart-open
           onClick={() => props.toggleCartOpen(true)}
-          className="cursor-pointer uppercase text-yellow-500 duration-500 hover:text-yellow-200"
+          className="flex cursor-pointer items-end uppercase text-yellow-500 duration-500 hover:text-yellow-200"
         >
           Cart
+          {props.cartQuantity > 0 && (
+            <div className="flex h-[1.5rem] w-[1.5rem] items-center justify-center rounded-full bg-red-800 text-[1rem] text-white">
+              {props.cartQuantity}
+            </div>
+          )}
         </button>
       </div>
     </div>

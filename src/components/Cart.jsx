@@ -1,23 +1,28 @@
 const Cart = (props) => {
   function deleteFromCart(id) {
     // Create a shallow copy of the cartList
-    let currCart = [...props.cartList]
+    let newCart = [...props.cartList]
 
     // Find the index of the item with the specified id
-    const itemIndex = currCart.findIndex((item) => item.product.id === id)
+    const itemIndex = newCart.findIndex((item) => item.product.id === id)
 
     // If the item exists in the cart
     if (itemIndex !== -1) {
       // Decrease the quantity if greater than 1
-      if (currCart[itemIndex].quantity > 1) {
-        currCart[itemIndex].quantity--
+      if (newCart[itemIndex].quantity > 1) {
+        newCart[itemIndex].quantity--
       } else {
         // Remove the item from the cartList if quantity is 1
-        currCart.splice(itemIndex, 1)
+        newCart.splice(itemIndex, 1)
       }
       // Optionally, you can set the updated cart back to your component state
       // For example, if using React and you have a setState function:
-      props.setCartList(currCart)
+
+      props.setCartList(() => {
+        props.saveCartContent(newCart)
+        return newCart
+      })
+      //saveCartContent
     }
   }
 

@@ -1,6 +1,5 @@
 const ProductCard = ({ item, addToCart }) => {
   const { id, name, type, price, quantity, likes, picture, bio } = item
-  console.log(name)
   const inStock = quantity > 0
 
   return (
