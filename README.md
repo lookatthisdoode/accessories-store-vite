@@ -1,14 +1,12 @@
 # Accesories Store Mockup
 
 ![Screenshot 1](src/assets/demo.png)
+[Live Preview](https://lookatthisdoode.github.io/accesories-store-vite/)
 
-
-##Features so far:
+## Features so far:
 - Functional components using **Vite**
 - Responsive design using **TailwindCSS**
 - Functional Cart that saves state to localstorage. User can add and delete items from the cart.
-
-[Live Preview](https://lookatthisdoode.github.io/accesories-store-vite/)
 
 
 ### Installation
@@ -25,6 +23,7 @@ Start developing server by running:
 ```bash
 npm run dev
 ````
+
 
 ### Work In Progress
 - **express.js** server to host orders and products in database
