@@ -1,7 +1,7 @@
 # Accesories Store Mockup
 
 ##Features so far:
-- functional components using **Vite**
+- Functional components using **Vite**
 - Responsive design using **TailwindCSS**
 - Functional Cart that saves state to localstorage. User can add and delete items from the cart.
 
