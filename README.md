@@ -10,7 +10,7 @@ Fork this repo, then run:
 
 ````bash
 npm install
-
+````
 
 
 ## Usage
