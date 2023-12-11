@@ -1,7 +1,7 @@
 # Accesories Store Mockup
 
 Responsive application. Using Vite, TailwindCss. Also gh-pages used to host the mockup:
-[Demo](https://github.com/lookatthisdoode/accesories-store-vite)
+[Preview](https://lookatthisdoode.github.io/accesories-store-vite/)
 ![Screenshot 1](src/assets/demo.png)
 
 ## Installation
