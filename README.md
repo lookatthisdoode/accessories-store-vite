@@ -1,8 +1,22 @@
-# React + Vite
+# Accesories Store Mockup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Responsive application. Using Vite, TailwindCss. Also gh-pages used to host the mockup:
+[Demo](https://github.com/lookatthisdoode/accesories-store-vite)
+![Screenshot 1](src/assets/demo.png)
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Fork this repo, then run:
+
+````bash
+npm install
+
+
+
+## Usage
+
+Start developing server by running:
+
+```bash
+npm run dev
+````
