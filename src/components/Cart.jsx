@@ -1,7 +1,9 @@
-const Cart = (props) => {
+const Cart = ({ cartList, updateCart, toggleCartOpen }) => {
+  //this lil function saves state of array and also updates localstorage
+
   function deleteFromCart(id) {
     // Create a shallow copy of the cartList
-    let newCart = [...props.cartList]
+    let newCart = [...cartList]
 
     // Find the index of the item with the specified id
     const itemIndex = newCart.findIndex((item) => item.product.id === id)
@@ -18,11 +20,31 @@ const Cart = (props) => {
       // Optionally, you can set the updated cart back to your component state
       // For example, if using React and you have a setState function:
 
-      props.setCartList(() => {
-        props.saveCartContent(newCart)
-        return newCart
-      })
+      updateCart(newCart)
     }
+  }
+
+  function sendOrder(cartList) {
+    // Drops if there is nothing in cartList array
+    if (cartList.length < 1) return
+    fetch('http://localhost:5000/sendorder', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cartList),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          updateCart([])
+          alert('Thank your for your order')
+        } else {
+          throw new Error(
+            `Server responded with status: ${response.status}, ${response.statusText}`,
+          )
+        }
+      })
+      .catch((error) => {
+        console.error(`CLIENT: ${error.message}`)
+      })
   }
 
   return (
@@ -34,7 +56,7 @@ const Cart = (props) => {
         <div className="flex w-full items-center justify-between text-5xl text-neutral-500">
           <div className="font-bold ">Cart</div>
           <button
-            onClick={() => props.toggleCartOpen(false)}
+            onClick={() => toggleCartOpen(false)}
             className="aspect-square w-10 cursor-pointer overflow-hidden  rounded-full bg-red-600 text-center text-[2rem] hover:bg-red-700"
           >
             <img
@@ -46,13 +68,13 @@ const Cart = (props) => {
           </button>
         </div>
 
-        {props.cartList.length < 1 ? (
+        {cartList.length < 1 ? (
           <div className="empty-cart mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-xl text-neutral-600 lg:max-h-[70vh]">
             There is nothing yet..
           </div>
         ) : (
           <div className="mb-10 mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-neutral-600 lg:max-h-[70vh]">
-            {props.cartList.map((item) => (
+            {cartList.map((item) => (
               <div
                 key={item.product.id} // Add a unique key for each item
                 className="flex justify-between py-2"
@@ -72,7 +94,7 @@ const Cart = (props) => {
             ))}
             <div className="mt-4 w-full rounded-md bg-neutral-300 py-2 text-center text-3xl text-neutral-500">
               {`Total: ${parseInt(
-                props.cartList.reduce((accumulator, item) => {
+                cartList.reduce((accumulator, item) => {
                   // Calculate the total value for the current item and add it to the accumulator
                   accumulator += item.quantity * item.product.price
                   return accumulator
@@ -83,7 +105,10 @@ const Cart = (props) => {
         )}
 
         <div className="mt-auto flex w-full flex-col items-center gap-5 rounded-3xl bg-neutral-500 p-5 text-3xl lg:rounded-md">
-          <div className="cursor-pointer font-bold hover:text-pink-300 ">
+          <div
+            onClick={() => sendOrder(cartList)}
+            className="cursor-pointer font-bold hover:text-pink-300 "
+          >
             Proceed To Order
           </div>
         </div>

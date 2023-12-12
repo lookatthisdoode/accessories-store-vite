@@ -1,36 +1,67 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import ProductCard from './components/ProductCard.jsx'
+import Cart from './components/Cart.jsx'
 import Landing from './components/Landing.jsx'
 import Nav from './components/Nav.jsx'
-import Cart from './components/Cart.jsx'
-import products from './products.json'
+import ProductCard from './components/ProductCard.jsx'
+import productsStatic from './products.json'
+import {
+  saveCartContentHelper,
+  loadCartContentHelper,
+} from './helpers/Helpers.js'
 
 function App() {
-  const STORAGE_PREFIX = 'VITALINA_ACCESORIES'
-  const CART_STORAGE_KEY = `${STORAGE_PREFIX}-cart`
-
   const [cartOpen, toggleCartOpen] = useState(false)
-  const [cartList, setCartList] = useState(loadCartContent())
+  const [cartList, setCartList] = useState([])
+  const [products, setProducts] = useState([])
 
-  function loadCartContent() {
-    const lanesJson = localStorage.getItem(CART_STORAGE_KEY)
-    return JSON.parse(lanesJson) || []
+  // This stuff gets run once the page is loaded
+  useEffect(() => {
+    getProducts()
+    setCartList(loadCartContentHelper())
+  }, [])
+
+  function getProducts() {
+    fetch('http://localhost:5000/')
+      .then((response) => {
+        // Check if data is not sent
+        if (response.status === 200) {
+          return response.json() // Resolve the promise with JSON data
+        } else {
+          // This will be thrown only if fetch resolved with any code
+          // Otherwise it will automatically catch "Network error" if fetch didnt get to server
+          throw new Error(
+            `Server responded with status: ${response.status}, ${response.statusText}`,
+          )
+        }
+      })
+      .then((data) => {
+        // This would only run if status code is 200, and data present
+        setProducts(data)
+      })
+      .catch((error) => {
+        // Handle errors, message to the user
+        console.error(`CLIENT: ${error.message}`)
+        console.log('Setting static products..')
+        // Set hardcoded products (for dev purposes)
+        setProducts(productsStatic)
+      })
   }
 
-  function saveCartContent(cartContent) {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartContent))
+  function updateCart(newCart) {
+    saveCartContentHelper(newCart)
+    setCartList(newCart)
   }
 
   function addToCart(id) {
-    //create new array so you wont mess with original
+    // Create new array so you won't mess with original
     let newCart = [...cartList]
-    //if item is exist in the cart just increase quantity
+    // If item is exist in the cart just increase quantity
     const existingItem = newCart.find((i) => id === i.product.id)
     if (existingItem) {
       existingItem.quantity++
     }
-    //if not push new entity to array
+    // If not push new entity to array
     else {
       const productToAdd = products.find((item) => item.id === id)
       productToAdd &&
@@ -39,11 +70,7 @@ function App() {
           quantity: 1,
         })
     }
-
-    setCartList(() => {
-      saveCartContent(newCart)
-      return newCart
-    })
+    updateCart(newCart)
   }
 
   return (
@@ -54,8 +81,7 @@ function App() {
           <Cart
             toggleCartOpen={toggleCartOpen}
             cartList={cartList}
-            setCartList={setCartList}
-            saveCartContent={saveCartContent}
+            updateCart={updateCart}
           />
         )}
       </section>
@@ -76,16 +102,17 @@ function App() {
       <section className="flex w-full justify-center bg-pink-300">
         <div className="container">
           <div className="flex flex-wrap justify-center lg:justify-start">
-            {products.map((product) => {
-              if (product.type === 'bracelet')
-                return (
-                  <ProductCard
-                    key={product.id}
-                    addToCart={addToCart}
-                    item={product}
-                  />
-                )
-            })}
+            {products &&
+              products.map((product) => {
+                if (product.type === 'bracelet')
+                  return (
+                    <ProductCard
+                      key={product.id}
+                      addToCart={addToCart}
+                      item={product}
+                    />
+                  )
+              })}
           </div>
         </div>
       </section>
@@ -96,16 +123,17 @@ function App() {
       <section className="flex w-full justify-center bg-pink-300 ">
         <div className="container">
           <div className="flex flex-wrap justify-center lg:justify-start">
-            {products.map((product) => {
-              if (product.type === 'necklace')
-                return (
-                  <ProductCard
-                    key={product.id}
-                    addToCart={addToCart}
-                    item={product}
-                  />
-                )
-            })}
+            {products &&
+              products.map((product) => {
+                if (product.type === 'necklace')
+                  return (
+                    <ProductCard
+                      key={product.id}
+                      addToCart={addToCart}
+                      item={product}
+                    />
+                  )
+              })}
           </div>
         </div>
       </section>
@@ -115,5 +143,4 @@ function App() {
   )
 }
 
-import '../script.js'
 export default App
