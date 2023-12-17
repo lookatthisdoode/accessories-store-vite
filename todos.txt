@@ -16,6 +16,7 @@ Add database functionality
 Finish API endpoints:
     Get products
     Save order with either save to file or database
+    **retrieve orders from database somehow (admin panel)
 
 
 

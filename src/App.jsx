@@ -9,6 +9,8 @@ import {
   saveCartContentHelper,
   loadCartContentHelper,
 } from './helpers/Helpers.js'
+const herokuUrl = 'https://accesories-store-api-83f92813ccbf.herokuapp.com'
+const localUrl = 'http://localhost:5000/'
 
 function App() {
   const [cartOpen, toggleCartOpen] = useState(false)
@@ -22,7 +24,7 @@ function App() {
   }, [])
 
   function getProducts() {
-    fetch('http://localhost:5000/')
+    fetch(herokuUrl + '/products')
       .then((response) => {
         // Check if data is not sent
         if (response.status === 200) {

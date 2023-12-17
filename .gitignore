@@ -10,7 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-accesories-store-api
+accesories-store-api-old
 *.local
 
 # Editor directories and files
