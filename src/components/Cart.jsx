@@ -1,12 +1,12 @@
-const Cart = ({ cartList, updateCart, toggleCartOpen }) => {
+const Cart = ({ API_URL, cartList, updateCart, toggleCartOpen }) => {
   //this lil function saves state of array and also updates localstorage
 
-  function deleteFromCart(id) {
+  function deleteFromCart(_id) {
     // Create a shallow copy of the cartList
     let newCart = [...cartList]
 
     // Find the index of the item with the specified id
-    const itemIndex = newCart.findIndex((item) => item.product.id === id)
+    const itemIndex = newCart.findIndex((item) => item.product._id === _id)
 
     // If the item exists in the cart
     if (itemIndex !== -1) {
@@ -27,7 +27,7 @@ const Cart = ({ cartList, updateCart, toggleCartOpen }) => {
   function sendOrder(cartList) {
     // Drops if there is nothing in cartList array
     if (cartList.length < 1) return
-    fetch('http://localhost:5000/sendorder', {
+    fetch(`${API_URL}/sendorder`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cartList),
@@ -76,12 +76,12 @@ const Cart = ({ cartList, updateCart, toggleCartOpen }) => {
           <div className="mb-10 mt-6 max-h-[50vh] w-full overflow-y-scroll rounded-md bg-neutral-200 p-5 text-neutral-600 lg:max-h-[70vh]">
             {cartList.map((item) => (
               <div
-                key={item.product.id} // Add a unique key for each item
+                key={item.product._id} // Add a unique key for each item
                 className="flex justify-between py-2"
               >
                 <div className="flex gap-3">
                   <div
-                    onClick={() => deleteFromCart(item.product.id)}
+                    onClick={() => deleteFromCart(item.product._id)}
                     className="flex h-full w-4 cursor-pointer items-center duration-200 hover:-translate-x-1"
                   >
                     <div className="minus h-1 w-3 rounded-full bg-red-600"></div>

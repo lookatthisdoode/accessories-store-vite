@@ -9,8 +9,7 @@ import {
   saveCartContentHelper,
   loadCartContentHelper,
 } from './helpers/Helpers.js'
-const herokuUrl = 'https://accesories-store-api-83f92813ccbf.herokuapp.com'
-const localUrl = 'http://localhost:5000/'
+import { API_URL } from './constants.js'
 
 function App() {
   const [cartOpen, toggleCartOpen] = useState(false)
@@ -24,7 +23,7 @@ function App() {
   }, [])
 
   function getProducts() {
-    fetch(herokuUrl + '/products')
+    fetch(API_URL + '/products')
       .then((response) => {
         // Check if data is not sent
         if (response.status === 200) {
@@ -55,17 +54,17 @@ function App() {
     setCartList(newCart)
   }
 
-  function addToCart(id) {
+  function addToCart(_id) {
     // Create new array so you won't mess with original
     let newCart = [...cartList]
     // If item is exist in the cart just increase quantity
-    const existingItem = newCart.find((i) => id === i.product.id)
+    const existingItem = newCart.find((i) => _id === i.product._id)
     if (existingItem) {
       existingItem.quantity++
     }
     // If not push new entity to array
     else {
-      const productToAdd = products.find((item) => item.id === id)
+      const productToAdd = products.find((item) => item._id === _id)
       productToAdd &&
         newCart.push({
           product: productToAdd,
@@ -84,6 +83,7 @@ function App() {
             toggleCartOpen={toggleCartOpen}
             cartList={cartList}
             updateCart={updateCart}
+            API_URL={API_URL}
           />
         )}
       </section>
@@ -109,7 +109,7 @@ function App() {
                 if (product.type === 'bracelet')
                   return (
                     <ProductCard
-                      key={product.id}
+                      key={product._id}
                       addToCart={addToCart}
                       item={product}
                     />
@@ -130,7 +130,7 @@ function App() {
                 if (product.type === 'necklace')
                   return (
                     <ProductCard
-                      key={product.id}
+                      key={product._id}
                       addToCart={addToCart}
                       item={product}
                     />

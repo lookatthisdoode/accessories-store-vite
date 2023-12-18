@@ -7,21 +7,8 @@ Create and style confirm order page where you can review your order and send it 
     Fix actual server data 
     (after order is sent you will be displayed message and rerouted to /)
 
-Add database functionality
-    Set up Imgur links
-    Set up products database and logic to retrieve them
-    Maybe remove all that quantity stuff for now so its easier 
-    Save orders to database
-
-Finish API endpoints:
-    Get products
-    Save order with either save to file or database
-    **retrieve orders from database somehow (admin panel)
 
 
-
-
-**Retrieve orders and display them to admin (some auth logic needed) 
 **Add email functionality
 **Add + in cart
 **Scroll to necklases, braceletettes etc

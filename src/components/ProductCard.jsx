@@ -1,11 +1,11 @@
 const ProductCard = ({ item, addToCart }) => {
-  const { id, name, type, price, quantity, likes, picture, bio } = item
+  const { _id, name, price, quantity, picture, bio } = item
   const inStock = quantity > 0
 
   return (
     <div
       data-store-item
-      data-item-id={id}
+      data-item-id={_id}
       className="card w-full p-5 text-neutral-800 lg:w-4/12 "
     >
       <div className="card-wrapper h-full w-full rounded bg-neutral-200 p-5 shadow-2xl">
@@ -36,7 +36,7 @@ const ProductCard = ({ item, addToCart }) => {
             {inStock ? (
               <button
                 onClick={() => {
-                  addToCart(id)
+                  addToCart(_id)
                 }}
                 data-add-to-cart
                 className="add-to-cart rounded bg-pink-300 px-2 py-1 hover:bg-pink-400"
