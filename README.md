@@ -1,7 +1,7 @@
 # Accessories Store Mockup
 
 ![Screenshot 1](src/assets/demo.png)
-[Live Preview](https://lookatthisdoode.github.io/accesories-store-vite)
+[Live Preview](https://lookatthisdoode.github.io/accessories-store-vite/)
 
 ## Overview
 
@@ -18,7 +18,7 @@ Welcome to the Accessories Store Mockup, a full-stack application built with js,
 ## API Server Repository
 
 For more details on the API server and how it handles data, please check the
-[Accessories Store API repository](https://github.com/lookatthisdoode/accesories-store-api)
+[Accessories Store API repository](https://github.com/lookatthisdoode/accessories-store-api)
 
 Feel free to explore, contribute, and enhance this Accessories Store Mockup for your own projects!
 
