@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import Cart from './components/Cart.jsx'
 import Landing from './components/Landing.jsx'
 import Nav from './components/Nav.jsx'
-import ProductCard from './components/ProductCard.jsx'
-import productsStatic from './products.json'
+import Category from './components/Category.jsx'
 import {
   saveCartContentHelper,
   loadCartContentHelper,
@@ -15,130 +13,119 @@ function App() {
   const [cartOpen, toggleCartOpen] = useState(false)
   const [cartList, setCartList] = useState([])
   const [products, setProducts] = useState([])
+  const [productsErrorMessage, setProductsErrorMessage] = useState('')
 
-  // This stuff gets run once the page is loaded
+  // This stuff runs once when the page is loaded
   useEffect(() => {
-    getProducts()
     setCartList(loadCartContentHelper())
+    getProducts()
   }, [])
 
   function getProducts() {
     fetch(API_URL + '/products')
-      .then((response) => {
-        // Check if data is not sent
-        if (response.status === 200) {
-          return response.json() // Resolve the promise with JSON data
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json()
         } else {
-          // This will be thrown only if fetch resolved with any code
-          // Otherwise it will automatically catch "Network error" if fetch didnt get to server
           throw new Error(
-            `Server responded with status: ${response.status}, ${response.statusText}`,
+            `Server responded with status: ${res.status} ${res.statusText}`,
           )
         }
       })
       .then((data) => {
-        // This would only run if status code is 200, and data present
+        // This would only run if status code is 200, AND data is present
         setProducts(data)
       })
       .catch((error) => {
-        // Handle errors, message to the user
+        // Handle errors, message to the client
         console.error(`CLIENT: ${error.message}`)
-        console.log('Setting static products..')
-        // Set hardcoded products (for dev purposes)
-        setProducts(productsStatic)
+        // Set error message to render instead of content
+        setProductsErrorMessage('Sorry, cant get products list at this time')
       })
   }
 
   function updateCart(newCart) {
-    saveCartContentHelper(newCart)
-    setCartList(newCart)
+    saveCartContentHelper(newCart) // Saves to localstorage
+    setCartList(newCart) // Saves to state
   }
 
   function addToCart(_id) {
     // Create new array so you won't mess with original
     let newCart = [...cartList]
-    // If item is exist in the cart just increase quantity
-    const existingItem = newCart.find((i) => _id === i.product._id)
+    // If item is exist in the cart, increase quantity in the cart
+    const existingItem = newCart.find((item) => _id === item.product._id)
     if (existingItem) {
       existingItem.quantity++
     }
-    // If not push new entity to array
+    // If not, create new object and push it to the cart array
     else {
-      const productToAdd = products.find((item) => item._id === _id)
-      productToAdd &&
-        newCart.push({
-          product: productToAdd,
-          quantity: 1,
-        })
+      // Find reference product by id from all products
+      const productToAdd = products.find((item) => _id === item._id)
+      const newCartItem = {
+        product: productToAdd,
+        quantity: 1,
+      }
+      newCart.push(newCartItem)
     }
+    // Update cart contents and localstorage
     updateCart(newCart)
   }
 
+  function scrollToCategory(categoryId) {
+    const categoryElement = document.getElementById(categoryId)
+
+    if (categoryElement) {
+      categoryElement.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      console.warn(`Category with ID "${categoryId}" not found.`)
+    }
+  }
+
+  function toggleCart() {
+    toggleCartOpen(!cartOpen)
+  }
+
+  // Render
+
   return (
     <>
-      <section className="container flex justify-center px-5 py-10 pt-50vh">
-        <Landing />
-        {cartOpen && (
-          <Cart
-            toggleCartOpen={toggleCartOpen}
-            cartList={cartList}
-            updateCart={updateCart}
-            API_URL={API_URL}
-          />
-        )}
-      </section>
-      <nav
-        id="nav"
-        className=" sticky top-0 z-40 flex w-full justify-center bg-neutral-600"
-      >
-        <div className="container p-5">
-          <Nav toggleCartOpen={toggleCartOpen} cartQuantity={cartList.length} />
-        </div>
-      </nav>
+      {cartOpen && (
+        <Cart
+          toggleCart={toggleCart}
+          cartList={cartList}
+          updateCart={updateCart}
+          API_URL={API_URL}
+        />
+      )}
+
+      <Landing />
+
+      <Nav
+        toggleCart={toggleCart}
+        cartQuantity={cartList.length}
+        scrollToCategory={scrollToCategory}
+      />
 
       <div className="spacer h-40vh"></div>
 
-      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-pink-500 shadow-2xl lg:text-9xl">
-        - Bracelettes -
-      </div>
-      <section className="flex w-full justify-center bg-pink-300">
-        <div className="container">
-          <div className="flex flex-wrap justify-center lg:justify-start">
-            {products &&
-              products.map((product) => {
-                if (product.type === 'bracelet')
-                  return (
-                    <ProductCard
-                      key={product._id}
-                      addToCart={addToCart}
-                      item={product}
-                    />
-                  )
-              })}
-          </div>
-        </div>
-      </section>
-
-      <div className="title w-full bg-neutral-100 p-5 text-center font-Nabi text-5xl text-pink-500 shadow-2xl lg:text-9xl">
-        - Necklaces -
-      </div>
-      <section className="flex w-full justify-center bg-pink-300 ">
-        <div className="container">
-          <div className="flex flex-wrap justify-center lg:justify-start">
-            {products &&
-              products.map((product) => {
-                if (product.type === 'necklace')
-                  return (
-                    <ProductCard
-                      key={product._id}
-                      addToCart={addToCart}
-                      item={product}
-                    />
-                  )
-              })}
-          </div>
-        </div>
-      </section>
+      {products.length ? (
+        <>
+          <Category
+            type="bracelet"
+            title={'- Bracelettes -'}
+            products={products}
+            addToCart={addToCart}
+          />
+          <Category
+            type="necklace"
+            title={'- Necklaces -'}
+            products={products}
+            addToCart={addToCart}
+          />
+        </>
+      ) : (
+        <div className="text-5xl">{productsErrorMessage}</div>
+      )}
 
       <div className="spacer h-40vh"></div>
     </>

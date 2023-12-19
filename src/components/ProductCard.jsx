@@ -3,11 +3,7 @@ const ProductCard = ({ item, addToCart }) => {
   const inStock = quantity > 0
 
   return (
-    <div
-      data-store-item
-      data-item-id={_id}
-      className="card w-full p-5 text-neutral-800 lg:w-4/12 "
-    >
+    <div className="card w-full p-5 text-neutral-800 lg:w-4/12 ">
       <div className="card-wrapper h-full w-full rounded bg-neutral-200 p-5 shadow-2xl">
         <div className="card-title pb-2 font-Nabi text-2xl uppercase">
           {name}
@@ -18,34 +14,33 @@ const ProductCard = ({ item, addToCart }) => {
             backgroundImage: `url(${picture})`,
             backgroundSize: 'cover',
             backgroundPositionX: 'center',
-            filter: quantity < 1 ? 'grayscale(100%)' : null,
+            filter: !inStock ? 'grayscale(100%)' : null,
           }}
         >
-          {quantity < 1 ? (
+          {!inStock ? (
             <div className="out-of-stock-overlay flex h-full items-center justify-center text-3xl font-bold text-neutral-50 ">
               Out Of Stock
             </div>
           ) : null}
         </div>
         <div className="card-info text-neutral-800">
-          <p className="card-bio cursor-pointer overflow-hidden py-5 text-xl">
+          <p className="card-bio line-clamp-3 cursor-pointer overflow-hidden py-5 text-xl">
             {bio}
           </p>
-          <div className="card-price-add-to-cart flex items-end justify-between">
-            <div className="card-price text-2xl">{price}$</div>
+          <div className="card-price-add-to-cart flex items-end justify-between py-5">
+            <div className="card-price font-Nabi text-2xl">{price}$</div>
             {inStock ? (
               <button
                 onClick={() => {
                   addToCart(_id)
                 }}
-                data-add-to-cart
-                className="add-to-cart rounded bg-pink-300 px-2 py-1 hover:bg-pink-400"
+                className="add-to-cart rounded-2xl bg-rose-300 px-3 py-2 font-Nabi text-neutral-700 hover:bg-rose-400"
               >
-                Add to cart
+                ADD TO CART
               </button>
             ) : (
-              <button className=" add-to-cart cursor-not-allowed rounded bg-neutral-400 px-2 py-1">
-                Out Of Stock
+              <button className="add-to-cart cursor-not-allowed rounded-2xl bg-neutral-400  px-3 py-2 font-Nabi">
+                OUT OF STOCK
               </button>
             )}
           </div>

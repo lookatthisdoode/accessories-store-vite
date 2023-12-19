@@ -18,7 +18,9 @@
   font-family: 'Nabi';
   font-style: normal;
   font-weight: 900;
-  src: local('Nabi'), url('./assets/fonts/Nabi.woff') format('woff');
+  src:
+    local('Nabi'),
+    url('./assets/fonts/Nabi.woff') format('woff');
 }
 
 @font-face {
@@ -35,21 +37,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
+#root {
+  width: 100%;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  place-content: center;
+  align-items: center;
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+*,
+* > * {
+  display: border-box;
+}

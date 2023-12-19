@@ -7,8 +7,3 @@ Create and style confirm order page where you can review your order and send it 
     Fix actual server data 
     (after order is sent you will be displayed message and rerouted to /)
 
-
-
-**Add email functionality
-**Add + in cart
-**Scroll to necklases, braceletettes etc
