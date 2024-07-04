@@ -33,7 +33,7 @@ const Cart = ({ API_URL, cartList, updateCart, toggleCart }) => {
   function sendOrder(cartList) {
     // Drops immediately if there is nothing in cartList array
     if (cartList.length < 1) return
-    fetch(`${API_URL}/sendorder`, {
+    fetch(`${API_URL}/api/sendorder`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cartList),

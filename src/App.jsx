@@ -22,8 +22,9 @@ function App() {
   }, [])
 
   function getProducts() {
-    fetch(API_URL + '/products')
+    fetch(API_URL + '/api/products')
       .then((res) => {
+        console.log(res, 'riesponce')
         if (res.status === 200) {
           return res.json()
         } else {
